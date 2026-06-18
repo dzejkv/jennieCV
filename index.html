@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Džejna Sejfić</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080A0F;
+  --bg-surface:#0E1117;
+  --bg-card:#131925;
+  --bg-card-hover:#18202F;
+  --border:#1E2535;
+  --border-hover:#2D3A52;
+  --indigo:#6366F1;
+  --indigo-dim:rgba(99,102,241,0.12);
+  --indigo-glow:rgba(99,102,241,0.06);
+  --text:#F0EEE9;
+  --text-2:#9BA3B5;
+  --text-3:#555F75;
+  --green:#34D399;
+  --green-dim:rgba(52,211,153,0.1);
+  --amber:#F59E0B;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+}
+
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* PROGRESS BAR */
+#progress{position:fixed;top:0;left:0;width:0%;height:2px;background:var(--indigo);z-index:100;transition:width 0.1s linear}
+
+/* DOT GRID HERO BG */
+.hero-grid{position:absolute;inset:0;background-image:radial-gradient(circle,var(--border) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,black 40%,transparent 100%);pointer-events:none;z-index:0}
+
+/* LAYOUT */
+.wrap{max-width:780px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+
+/* HERO */
+.hero{position:relative;padding:96px 0 80px;overflow:hidden}
+.hero-inner{position:relative;z-index:1}
+
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--indigo);margin-bottom:28px;opacity:0;animation:fadeUp 0.6s var(--ease-out) 0.1s forwards}
+.kicker-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+
+h1{font-family:var(--font-display);font-size:clamp(40px,8vw,68px);font-weight:700;letter-spacing:-0.04em;line-height:1;margin-bottom:20px;opacity:0;animation:fadeUp 0.7s var(--ease-out) 0.2s forwards}
+h1 em{font-style:normal;color:var(--indigo)}
+
+.hero-sub{font-size:16px;color:var(--text-2);max-width:520px;line-height:1.7;margin-bottom:36px;opacity:0;animation:fadeUp 0.7s var(--ease-out) 0.3s forwards;font-weight:300}
+
+.contact-bar{display:flex;flex-wrap:wrap;gap:6px 0;opacity:0;animation:fadeUp 0.7s var(--ease-out) 0.4s forwards}
+.contact-bar a,.contact-bar span{font-family:var(--font-mono);font-size:11.5px;color:var(--text-3);text-decoration:none;transition:color 0.2s;padding-right:16px;position:relative}
+.contact-bar a::after{content:'·';position:absolute;right:6px;color:var(--border)}
+.contact-bar span:last-child::after,.contact-bar a:last-child::after{display:none}
+.contact-bar a:hover{color:var(--indigo)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* DIVIDER */
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border) 20%,var(--border) 80%,transparent);margin:0}
+
+/* SECTION */
+section{padding:64px 0}
+.section-label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--indigo);margin-bottom:40px;display:flex;align-items:center;gap:12px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* PROFILE */
+.profile-body{font-size:16px;color:var(--text-2);line-height:1.85;font-weight:300;max-width:680px}
+.profile-body strong{color:var(--text);font-weight:500}
+
+/* EXPERIENCE */
+.job{margin-bottom:0}
+.job+.job{margin-top:0}
+.job-wrap{padding:32px 0;border-bottom:1px solid var(--border)}
+.job-wrap:last-child{border-bottom:none;padding-bottom:0}
+.job-wrap:first-child{padding-top:0}
+
+.job-meta{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:6px;flex-wrap:wrap}
+.job-title{font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text);letter-spacing:-0.01em}
+.job-date{font-family:var(--font-mono);font-size:11px;color:var(--text-3);white-space:nowrap;padding-top:3px;flex-shrink:0}
+.job-co{font-size:13px;color:var(--indigo);font-weight:500;margin-bottom:20px;letter-spacing:0.01em}
+
+.bullets{list-style:none;display:flex;flex-direction:column;gap:10px}
+.bullets li{font-size:14px;color:var(--text-2);padding-left:18px;position:relative;line-height:1.65;font-weight:300}
+.bullets li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:1px;background:var(--indigo);transition:width 0.2s var(--ease-out)}
+.job-wrap:hover .bullets li::before{width:8px}
+
+/* PROJECTS */
+.project-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+
+.project-card{display:block;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:24px;text-decoration:none;transition:border-color 0.25s,background 0.25s,transform 0.25s var(--ease-out);position:relative;overflow:hidden}
+.project-card::before{content:'';position:absolute;inset:0;background:var(--indigo-glow);opacity:0;transition:opacity 0.25s}
+.project-card:hover{border-color:var(--border-hover);background:var(--bg-card-hover);transform:translateY(-2px)}
+.project-card:hover::before{opacity:1}
+
+.project-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.project-icon{width:36px;height:36px;border-radius:8px;background:var(--indigo-dim);border:1px solid rgba(99,102,241,0.2);display:flex;align-items:center;justify-content:center}
+.project-icon svg{width:16px;height:16px;stroke:var(--indigo);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.project-arrow{color:var(--text-3);font-size:16px;transition:color 0.2s,transform 0.2s var(--ease-spring)}
+.project-card:hover .project-arrow{color:var(--indigo);transform:translate(2px,-2px)}
+
+.project-name{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px;letter-spacing:-0.01em}
+.project-desc{font-size:13px;color:var(--text-2);line-height:1.6;font-weight:300}
+.project-lang{margin-top:20px;font-family:var(--font-mono);font-size:11px;color:var(--green)}
+
+/* SKILLS */
+.skill-groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:32px 24px}
+.skill-group-name{font-family:var(--font-mono);font-size:10.5px;color:var(--text-3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--font-mono);font-size:11.5px;color:var(--text-2);background:var(--bg-card);border:1px solid var(--border);padding:5px 10px;border-radius:5px;transition:color 0.2s,border-color 0.2s,background 0.2s;cursor:default}
+.tag:hover{color:var(--text);border-color:var(--border-hover);background:var(--bg-card-hover)}
+
+/* CERTS */
+.cert-list{display:flex;flex-direction:column;gap:10px}
+.cert{display:flex;align-items:center;gap:16px;padding:18px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.2s}
+.cert:hover{border-color:var(--border-hover)}
+.cert-icon{width:38px;height:38px;border-radius:8px;background:var(--indigo-dim);border:1px solid rgba(99,102,241,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cert-icon svg{width:16px;height:16px;stroke:var(--indigo);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.cert-name{font-family:var(--font-display);font-size:14px;font-weight:600;color:var(--text)}
+.cert-meta{font-size:12px;color:var(--text-3);margin-top:2px;font-weight:300}
+.cert-badge{margin-left:auto;font-family:var(--font-mono);font-size:10.5px;color:var(--green);background:var(--green-dim);border:1px solid rgba(52,211,153,0.2);padding:4px 12px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+
+/* EDUCATION */
+.edu-list{display:flex;flex-direction:column;gap:28px}
+.edu-degree{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px;letter-spacing:-0.01em}
+.edu-school{font-size:13px;color:var(--indigo);font-weight:500;margin-bottom:4px}
+.edu-dates{font-family:var(--font-mono);font-size:11px;color:var(--text-3)}
+
+/* LANGUAGES */
+.lang-list{display:flex;flex-direction:column;gap:16px}
+.lang-row{display:flex;align-items:center;gap:12px}
+.lang-name{font-family:var(--font-display);font-size:14px;font-weight:500;width:90px;flex-shrink:0}
+.lang-level{font-size:13px;color:var(--text-3);font-weight:300;flex:1}
+.lang-pips{display:flex;gap:4px;margin-left:auto}
+.pip{width:7px;height:7px;border-radius:50%;background:var(--border);transition:background 0.2s}
+.pip.on{background:var(--indigo)}
+
+/* FOOTER */
+footer{padding:48px 0 56px;text-align:center}
+footer p{font-family:var(--font-mono);font-size:11.5px;color:var(--text-3)}
+footer a{color:var(--indigo);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s var(--ease-out),transform 0.6s var(--ease-out)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.08s}
+.reveal-delay-2{transition-delay:0.16s}
+.reveal-delay-3{transition-delay:0.24s}
+
+/* FOCUS */
+a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius:3px}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .wrap{padding:0 20px}
+  .hero{padding:64px 0 56px}
+  section{padding:48px 0}
+  .job-meta{flex-direction:column;gap:4px}
+  .job-date{padding-top:0}
+  .cert-badge{display:none}
+  .project-grid{grid-template-columns:1fr}
+  .skill-groups{grid-template-columns:repeat(2,1fr);gap:24px 16px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div id="progress" role="progressbar" aria-label="Page scroll progress"></div>
+
+<main>
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div class="kicker"><span class="kicker-dot" aria-hidden="true"></span>Available · Sarajevo, Bosnia and Herzegovina</div>
+    <h1>Džejna <em>Sejfić</em></h1>
+    <p class="hero-sub">IT professional with hands-on experience operating critical national election infrastructure. Building toward security engineering.</p>
+    <nav class="contact-bar" aria-label="Contact links">
+      <a href="mailto:dzejnasfc@gmail.com">dzejnasfc@gmail.com</a>
+      <a href="https://github.com/dzejkv" target="_blank" rel="noopener">github.com/dzejkv</a>
+      <span>(+387) 62 529 650</span>
+    </nav>
+  </div>
+</header>
+
+<div class="section-divider"></div>
+
+<!-- PROFILE -->
+<section aria-labelledby="profile-heading">
+  <div class="wrap">
+    <p class="section-label" id="profile-heading">Profile</p>
+    <p class="profile-body reveal">
+      IT professional and final-year BSc student (graduating September 2026) with direct experience supporting <strong>national election systems</strong> under zero-tolerance conditions. At CIK BIH I administered user access and permissions, made live changes to <strong>Cisco network infrastructure</strong>, and analysed system logs in real time — in an environment where failure is not an option. Alongside this, I am actively building toward <strong>SOC operations and network security</strong> through certifications and independent projects. I thrive in structured, high-stakes environments that demand precision, clear documentation, and reliable execution.
+    </p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EXPERIENCE -->
+<section aria-labelledby="exp-heading">
+  <div class="wrap">
+    <p class="section-label" id="exp-heading">Work Experience</p>
+
+    <div class="job-wrap reveal">
+      <div class="job-meta">
+        <span class="job-title">System Administrator — 2025 General Elections</span>
+        <span class="job-date">Nov 2025 — Present</span>
+      </div>
+      <div class="job-co">Central Election Commission of Bosnia and Herzegovina (CIK BIH) · Sarajevo</div>
+      <ul class="bullets">
+        <li>Administered user access and permissions across critical national election systems, enforcing strict access control policies in a zero-tolerance environment.</li>
+        <li>Made live configuration changes to Cisco network infrastructure during active election operations, including adding and managing network devices.</li>
+        <li>Monitored system logs and analysed events in real time; conducted root-cause analyses to resolve incidents before they escalated.</li>
+        <li>Maintained 100% system uptime throughout the election cycle by implementing monitoring, escalation, and recovery protocols.</li>
+        <li>Minimised operational risk through data integrity checks, detailed documentation, and decisive action under high-pressure conditions.</li>
+        <li>Bridged technical and non-technical teams by translating system issues into clear, actionable guidance.</li>
+      </ul>
+    </div>
+
+    <div class="job-wrap reveal reveal-delay-1">
+      <div class="job-meta">
+        <span class="job-title">IT Assistant — 2024 Elections</span>
+        <span class="job-date">Oct – Dec 2024</span>
+      </div>
+      <div class="job-co">Central Election Commission of Bosnia and Herzegovina (CIK BIH) · Sarajevo</div>
+      <ul class="bullets">
+        <li>Supported national election infrastructure by adhering strictly to standardised operating procedures in a regulated environment.</li>
+        <li>Reduced system downtime through proactive communication and close coordination with the wider IT team.</li>
+        <li>Maintained process discipline and quality control across all assigned responsibilities.</li>
+      </ul>
+    </div>
+
+    <div class="job-wrap reveal reveal-delay-2">
+      <div class="job-meta">
+        <span class="job-title">E-commerce Developer (Freelance)</span>
+        <span class="job-date">Apr 2025 — Present</span>
+      </div>
+      <div class="job-co">Upwork · Remote</div>
+      <ul class="bullets">
+        <li>Built and maintained e-commerce solutions for 50+ international clients, focused on performance and long-term maintainability.</li>
+        <li>Streamlined user workflows by removing redundant steps and simplifying inefficient logic.</li>
+        <li>Wrote clean, documented, and maintainable code; iterated on solutions based on client feedback.</li>
+      </ul>
+    </div>
+
+    <div class="job-wrap reveal reveal-delay-3">
+      <div class="job-meta">
+        <span class="job-title">Customer Support Agent</span>
+        <span class="job-date">Feb – Dec 2022</span>
+      </div>
+      <div class="job-co">Attentive · New York, USA (Remote)</div>
+      <ul class="bullets">
+        <li>Resolved a high volume of customer requests accurately and efficiently in a fast-paced environment.</li>
+        <li>Built strong communication and organisational skills following established procedures.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section aria-labelledby="projects-heading">
+  <div class="wrap">
+    <p class="section-label" id="projects-heading">Security Projects</p>
+    <div class="project-grid">
+
+      <a class="project-card reveal" href="https://github.com/dzejkv/01-log-analysis-ai" target="_blank" rel="noopener">
+        <div class="project-header">
+          <div class="project-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <span class="project-arrow" aria-hidden="true">↗</span>
+        </div>
+        <div class="project-name">Log Analysis Tool</div>
+        <div class="project-desc">Analyses authentication logs and detects suspicious login activity, including failed attempts and potential brute-force patterns.</div>
+        <div class="project-lang">Python</div>
+      </a>
+
+      <a class="project-card reveal reveal-delay-1" href="https://github.com/dzejkv/ai-soc-analyst" target="_blank" rel="noopener">
+        <div class="project-header">
+          <div class="project-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <span class="project-arrow" aria-hidden="true">↗</span>
+        </div>
+        <div class="project-name">AI SOC Analyst</div>
+        <div class="project-desc">AI-powered SOC assistant that queries security logs and explains threats in natural language — built to explore detection engineering workflows.</div>
+        <div class="project-lang">Python</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section aria-labelledby="certs-heading">
+  <div class="wrap">
+    <p class="section-label" id="certs-heading">Certifications</p>
+    <div class="cert-list">
+
+      <div class="cert reveal">
+        <div class="cert-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        </div>
+        <div>
+          <div class="cert-name">Google Cybersecurity Certificate</div>
+          <div class="cert-meta">Google · Coursera</div>
+        </div>
+        <span class="cert-badge">In Progress</span>
+      </div>
+
+      <div class="cert reveal reveal-delay-1">
+        <div class="cert-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+        </div>
+        <div>
+          <div class="cert-name">Cisco CCNA</div>
+          <div class="cert-meta">Cisco Networking Academy</div>
+        </div>
+        <span class="cert-badge">In Progress</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section aria-labelledby="skills-heading">
+  <div class="wrap">
+    <p class="section-label" id="skills-heading">Skills</p>
+    <div class="skill-groups reveal">
+
+      <div>
+        <div class="skill-group-name">Security &amp; Networks</div>
+        <div class="tag-list">
+          <span class="tag">Log Analysis</span>
+          <span class="tag">Access Control</span>
+          <span class="tag">Cisco</span>
+          <span class="tag">Incident Response</span>
+          <span class="tag">Threat Detection</span>
+          <span class="tag">SIEM</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-name">Programming</div>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">Java</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">SQL</span>
+          <span class="tag">C</span>
+          <span class="tag">Kotlin</span>
+          <span class="tag">HTML / CSS</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-name">Systems &amp; Tools</div>
+        <div class="tag-list">
+          <span class="tag">Linux</span>
+          <span class="tag">Windows</span>
+          <span class="tag">Git</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">Shopify</span>
+          <span class="tag">Microsoft Office</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-name">Practices</div>
+        <div class="tag-list">
+          <span class="tag">Documentation</span>
+          <span class="tag">Root-cause Analysis</span>
+          <span class="tag">OOP</span>
+          <span class="tag">Process Compliance</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EDUCATION -->
+<section aria-labelledby="edu-heading">
+  <div class="wrap">
+    <p class="section-label" id="edu-heading">Education</p>
+    <div class="edu-list">
+      <div class="reveal">
+        <div class="edu-degree">BSc in Information Technology</div>
+        <div class="edu-school">International Burch University · Sarajevo, Bosnia and Herzegovina</div>
+        <div class="edu-dates">Oct 2022 — Sep 2026 (expected) · Information and Communication Technologies</div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="edu-degree">IGCSE &amp; AS/A Levels — Cambridge International</div>
+        <div class="edu-school">Bošnjačka Gimnazija · Sarajevo, Bosnia and Herzegovina</div>
+        <div class="edu-dates">Sep 2016 — Jun 2020</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- LANGUAGES -->
+<section aria-labelledby="lang-heading">
+  <div class="wrap">
+    <p class="section-label" id="lang-heading">Languages</p>
+    <div class="lang-list reveal">
+      <div class="lang-row">
+        <span class="lang-name">Bosnian</span>
+        <span class="lang-level">Native</span>
+        <div class="lang-pips" aria-label="5 of 5">
+          <div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div>
+        </div>
+      </div>
+      <div class="lang-row">
+        <span class="lang-name">English</span>
+        <span class="lang-level">Proficient · C2</span>
+        <div class="lang-pips" aria-label="5 of 5">
+          <div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div>
+        </div>
+      </div>
+      <div class="lang-row">
+        <span class="lang-name">German</span>
+        <span class="lang-level">Basic · A2 / B1 spoken</span>
+        <div class="lang-pips" aria-label="2 of 5">
+          <div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Džejna Sejfić · <a href="https://github.com/dzejkv" target="_blank" rel="noopener">github.com/dzejkv</a> · <a href="mailto:dzejnasfc@gmail.com">dzejnasfc@gmail.com</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Scroll progress bar
+  var bar=document.getElementById('progress');
+  function updateBar(){
+    var s=document.documentElement,scrolled=s.scrollTop||document.body.scrollTop,total=s.scrollHeight-s.clientHeight;
+    bar.style.width=(total>0?(scrolled/total*100):0)+'%';
+  }
+  window.addEventListener('scroll',updateBar,{passive:true});
+
+  // Intersection observer for scroll reveals
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
+      });
+    },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(el){io.observe(el)});
+  } else {
+    els.forEach(function(el){el.classList.add('visible')});
+  }
+})();
+</script>
+
+</body>
+</html>
