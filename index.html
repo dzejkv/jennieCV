@@ -4,6 +4,9 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Džejna Sejfić</title>
+<meta name="description" content="Džejna Sejfić — IT professional with experience on both sides of national election infrastructure: the election authority and the technology vendor. Building toward security engineering."/>
+<meta name="theme-color" content="#080A0F"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23131925'/%3E%3Ctext x='16' y='21.5' text-anchor='middle' font-family='Arial' font-weight='700' font-size='14' fill='%236366F1'%3EDS%3C/text%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -17,14 +20,19 @@
   --border:#1E2535;
   --border-hover:#2D3A52;
   --indigo:#6366F1;
+  --indigo-2:#818CF8;
   --indigo-dim:rgba(99,102,241,0.12);
   --indigo-glow:rgba(99,102,241,0.06);
   --text:#F0EEE9;
   --text-2:#9BA3B5;
-  --text-3:#555F75;
+  --text-3:#626C83;
   --green:#34D399;
   --green-dim:rgba(52,211,153,0.1);
   --amber:#F59E0B;
+  --magenta:#D946EF;
+  --pink:#F472B6;
+  --magenta-dim:rgba(217,70,239,0.12);
+  --grad:linear-gradient(100deg,var(--indigo) 0%,var(--magenta) 55%,var(--pink) 100%);
   --font-display:'Space Grotesk',sans-serif;
   --font-body:'DM Sans',sans-serif;
   --font-mono:'JetBrains Mono',monospace;
@@ -32,88 +40,200 @@
   --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
 }
 
-html{scroll-behavior:smooth;font-size:16px}
+html{scroll-behavior:smooth;font-size:16px;scroll-padding-top:72px}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:rgba(99,102,241,0.35);color:#fff}
 
 /* PROGRESS BAR */
-#progress{position:fixed;top:0;left:0;width:0%;height:2px;background:var(--indigo);z-index:100;transition:width 0.1s linear}
+#progress{position:fixed;top:0;left:0;width:0%;height:2px;background:var(--grad);box-shadow:0 0 10px rgba(217,70,239,0.6);z-index:100;transition:width 0.1s linear}
+
+/* STICKY NAV */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:90;background:rgba(8,10,15,0.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transform:translateY(-100%);transition:transform 0.35s var(--ease-out)}
+.topnav.show{transform:translateY(0)}
+.topnav-inner{max-width:780px;margin:0 auto;padding:0 28px;height:56px;display:flex;align-items:center;gap:20px}
+.topnav-name{font-family:var(--font-display);font-weight:600;font-size:14px;color:var(--text);text-decoration:none;letter-spacing:-0.01em;margin-right:auto;display:flex;align-items:center;gap:10px}
+.monogram{width:26px;height:26px;border-radius:7px;background:var(--bg-card);border:1px solid var(--border-hover);display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:var(--indigo-2);letter-spacing:0}
+.topnav a.nl{font-family:var(--font-mono);font-size:11px;color:var(--text-3);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.2s}
+.topnav a.nl:hover,.topnav a.nl.active{color:var(--text)}
+.topnav a.nl.active{color:var(--indigo-2)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11.5px;letter-spacing:0.04em;text-decoration:none;padding:9px 16px;border-radius:8px;border:1px solid var(--border-hover);color:var(--text);background:var(--bg-card);cursor:pointer;transition:border-color 0.2s,background 0.2s,transform 0.2s var(--ease-out)}
+.btn:hover{border-color:var(--indigo);background:var(--bg-card-hover);transform:translateY(-1px)}
+.btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.btn-primary{background:var(--indigo);border-color:var(--indigo);color:#fff}
+.btn-primary:hover{background:#5558E8;border-color:var(--indigo-2)}
+.btn-sm{padding:6px 12px;font-size:10.5px}
 
 /* DOT GRID HERO BG */
-.hero-grid{position:absolute;inset:0;background-image:radial-gradient(circle,var(--border) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,black 40%,transparent 100%);pointer-events:none;z-index:0}
+.hero-grid{position:absolute;inset:0;background-image:radial-gradient(circle,var(--border) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,black 40%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,black 40%,transparent 100%);pointer-events:none;z-index:0}
+/* AURORA BLOBS + PARTICLE NETWORK behind the hero */
+.aurora{position:absolute;inset:-20% -10% auto -10%;height:140%;pointer-events:none;z-index:0;overflow:hidden;mask-image:linear-gradient(180deg,black 55%,transparent 100%);-webkit-mask-image:linear-gradient(180deg,black 55%,transparent 100%)}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:0.55;mix-blend-mode:screen;will-change:transform}
+.blob.b1{width:520px;height:520px;left:8%;top:-8%;background:radial-gradient(circle,rgba(99,102,241,0.55),transparent 65%);animation:drift1 22s ease-in-out infinite alternate}
+.blob.b2{width:460px;height:460px;right:6%;top:2%;background:radial-gradient(circle,rgba(217,70,239,0.50),transparent 65%);animation:drift2 26s ease-in-out infinite alternate}
+.blob.b3{width:320px;height:320px;left:42%;top:30%;background:radial-gradient(circle,rgba(244,114,182,0.35),transparent 65%);animation:drift3 18s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(120px,60px) scale(1.15)}}
+@keyframes drift2{to{transform:translate(-140px,80px) scale(0.9)}}
+@keyframes drift3{to{transform:translate(-80px,-60px) scale(1.25)}}
+#net{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;transition:opacity 0.4s}
+main,footer{position:relative;z-index:1}
+
+/* AMBIENT GLOWS that follow you down the page */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:var(--amb,0);transition:opacity 0.6s}
+.ambient .g{position:absolute;border-radius:50%;filter:blur(90px);mix-blend-mode:screen}
+.ambient .g1{width:520px;height:520px;right:-180px;top:10%;background:radial-gradient(circle,rgba(217,70,239,0.22),transparent 65%);transform:translateY(calc(var(--sp,0) * -260px));animation:drift2 30s ease-in-out infinite alternate}
+.ambient .g2{width:560px;height:560px;left:-220px;bottom:-10%;background:radial-gradient(circle,rgba(99,102,241,0.22),transparent 65%);transform:translateY(calc(var(--sp,0) * 220px));animation:drift1 34s ease-in-out infinite alternate}
+.ambient .g3{width:360px;height:360px;left:40%;top:45%;background:radial-gradient(circle,rgba(244,114,182,0.12),transparent 65%);animation:drift3 24s ease-in-out infinite alternate}
+
+/* SCROLL RAIL: one glowing line down the whole page */
+.rail{position:absolute;left:max(10px,calc(50% - 440px));width:2px;z-index:2;pointer-events:none}
+.rail::before{content:'';position:absolute;inset:0;background:var(--border);opacity:0.7;border-radius:2px}
+.rail-fill{position:absolute;left:0;top:0;width:2px;height:0;background:linear-gradient(180deg,var(--indigo),var(--magenta) 60%,var(--pink));border-radius:2px;box-shadow:0 0 12px rgba(217,70,239,0.55)}
+.rail-head{position:absolute;left:-4px;top:0;width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(217,70,239,0.35),0 0 18px 4px rgba(217,70,239,0.7);transform:translateY(-5px)}
+.rail-node{position:absolute;left:-4px;width:10px;height:10px;border-radius:50%;background:var(--bg);border:1.5px solid var(--border-hover);transform:translateY(-5px);transition:border-color 0.3s,box-shadow 0.3s,background 0.3s}
+.rail-node.on{border-color:var(--magenta);background:var(--magenta);box-shadow:0 0 12px rgba(217,70,239,0.8)}
+.section-label{transition:color 0.4s}
+.section-label.lit{color:var(--pink)}
+.section-label.lit::after{background:linear-gradient(90deg,rgba(217,70,239,0.5),var(--border) 40%)}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:95;opacity:0.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* LAYOUT */
 .wrap{max-width:780px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
 
 /* HERO */
-.hero{position:relative;padding:96px 0 80px;overflow:hidden}
+.hero{position:relative;padding:104px 0 84px;overflow:hidden}
 .hero-inner{position:relative;z-index:1}
+.hero-visual{position:absolute;z-index:0;top:36px;left:calc(50% + 150px);width:440px;height:440px;opacity:0;animation:fadeIn 1.4s var(--ease-out) 0.5s forwards;pointer-events:none}
+.hero-visual svg{width:100%;height:100%;overflow:visible}
+.hv-label{font-family:var(--font-mono);font-size:9.5px;letter-spacing:0.12em;fill:var(--text-3)}
+.hv-ring-spin{transform-origin:220px 220px;animation:spin 60s linear infinite}
+.hv-ring-spin-rev{transform-origin:220px 220px;animation:spin 90s linear infinite reverse}
+.hv-link{stroke:var(--border-hover);stroke-width:1;stroke-dasharray:3 5;animation:dash 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes dash{to{stroke-dashoffset:-16}}
+@keyframes fadeIn{to{opacity:1}}
 
-.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--indigo);margin-bottom:28px;opacity:0;animation:fadeUp 0.6s var(--ease-out) 0.1s forwards}
-.kicker-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite}
-@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--indigo-2);margin-bottom:28px;opacity:0;animation:fadeUp 0.6s var(--ease-out) 0.1s forwards;background:var(--indigo-glow);border:1px solid rgba(99,102,241,0.22);padding:6px 12px;border-radius:999px}
+.kicker-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(52,211,153,0.6);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(52,211,153,0.55)}70%{box-shadow:0 0 0 7px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
 
-h1{font-family:var(--font-display);font-size:clamp(40px,8vw,68px);font-weight:700;letter-spacing:-0.04em;line-height:1;margin-bottom:20px;opacity:0;animation:fadeUp 0.7s var(--ease-out) 0.2s forwards}
-h1 em{font-style:normal;color:var(--indigo)}
+h1{font-family:var(--font-display);font-size:clamp(42px,8vw,72px);font-weight:700;letter-spacing:-0.04em;line-height:1;margin-bottom:22px;opacity:0;animation:fadeUp 0.7s var(--ease-out) 0.2s forwards}
+h1 em{font-style:normal;background:linear-gradient(100deg,var(--indigo-2) 0%,var(--magenta) 45%,var(--pink) 70%,var(--indigo-2) 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 8s ease-in-out infinite}
+@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
-.hero-sub{font-size:16px;color:var(--text-2);max-width:520px;line-height:1.7;margin-bottom:36px;opacity:0;animation:fadeUp 0.7s var(--ease-out) 0.3s forwards;font-weight:300}
+.hero-role{font-family:var(--font-mono);font-size:12.5px;color:var(--text-2);margin-bottom:18px;min-height:1.6em;opacity:0;animation:fadeUp 0.7s var(--ease-out) 0.25s forwards}
+.hero-role .prompt{color:var(--green)}
+.hero-role .caret{display:inline-block;width:7px;height:14px;background:var(--indigo-2);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
 
-.contact-bar{display:flex;flex-wrap:wrap;gap:6px 0;opacity:0;animation:fadeUp 0.7s var(--ease-out) 0.4s forwards}
+.hero-sub{font-size:16px;color:var(--text-2);max-width:520px;line-height:1.7;margin-bottom:32px;opacity:0;animation:fadeUp 0.7s var(--ease-out) 0.3s forwards;font-weight:300}
+.hero-sub strong{color:var(--text);font-weight:500}
+
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;opacity:0;animation:fadeUp 0.7s var(--ease-out) 0.38s forwards}
+
+.contact-bar{display:flex;flex-wrap:wrap;gap:6px 0;opacity:0;animation:fadeUp 0.7s var(--ease-out) 0.45s forwards}
 .contact-bar a,.contact-bar span{font-family:var(--font-mono);font-size:11.5px;color:var(--text-3);text-decoration:none;transition:color 0.2s;padding-right:16px;position:relative}
-.contact-bar a::after{content:'·';position:absolute;right:6px;color:var(--border)}
-.contact-bar span:last-child::after,.contact-bar a:last-child::after{display:none}
-.contact-bar a:hover{color:var(--indigo)}
+.contact-bar a::after,.contact-bar span::after{content:'·';position:absolute;right:6px;color:var(--border-hover)}
+.contact-bar > :last-child::after{display:none}
+.contact-bar a:hover{color:var(--indigo-2)}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 0 64px}
+.stat{position:relative;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px 18px 18px;overflow:hidden;transition:border-color 0.25s}
+.stat:hover{border-color:var(--border-hover)}
+.stat-num{font-family:var(--font-display);font-size:30px;font-weight:700;letter-spacing:-0.03em;line-height:1;color:var(--text);margin-bottom:10px;font-variant-numeric:tabular-nums}
+.stat-num .u{color:var(--indigo-2)}
+.stat-label{font-size:12.5px;color:var(--text-2);line-height:1.45;font-weight:300}
+.stat-bar{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--grad);transition:width 1.4s var(--ease-out)}
+.stat.visible .stat-bar{width:100%}
+
+/* SPOTLIGHT (cursor glow on cards) */
+.spot{--mx:50%;--my:50%}
+.spot::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(260px circle at var(--mx) var(--my),rgba(217,70,239,0.10),rgba(99,102,241,0.05) 40%,transparent 65%);opacity:0;transition:opacity 0.3s;pointer-events:none}
+.spot:hover::after{opacity:1}
 
 /* DIVIDER */
 .section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border) 20%,var(--border) 80%,transparent);margin:0}
 
 /* SECTION */
 section{padding:64px 0}
-.section-label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--indigo);margin-bottom:40px;display:flex;align-items:center;gap:12px}
+.section-label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--indigo-2);margin-bottom:40px;display:flex;align-items:center;gap:12px}
+.section-label .num{color:var(--magenta)}
 .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
 
 /* PROFILE */
 .profile-body{font-size:16px;color:var(--text-2);line-height:1.85;font-weight:300;max-width:680px}
 .profile-body strong{color:var(--text);font-weight:500}
 
-/* EXPERIENCE */
-.job{margin-bottom:0}
-.job+.job{margin-top:0}
-.job-wrap{padding:32px 0;border-bottom:1px solid var(--border)}
+/* JOURNEY (two sides of the election) */
+.journey{margin-top:36px;display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:0}
+.j-node{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:18px;position:relative;overflow:hidden}
+.j-node .j-k{font-family:var(--font-mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px}
+.j-node .j-t{font-family:var(--font-display);font-size:14.5px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:6px}
+.j-node .j-d{font-size:12.5px;color:var(--text-2);font-weight:300;line-height:1.5}
+.j-node.next{border-style:dashed;border-color:rgba(52,211,153,0.35);background:linear-gradient(180deg,rgba(52,211,153,0.05),transparent)}
+.j-node.next .j-k{color:var(--green)}
+.j-arrow{display:flex;align-items:center;justify-content:center;width:34px;color:var(--text-3)}
+.j-arrow svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+
+/* EXPERIENCE — timeline */
+.timeline{position:relative;padding-left:30px}
+.timeline::before{content:'';position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--indigo) 0%,var(--border) 30%,var(--border) 85%,transparent)}
+.job-wrap{position:relative;padding:32px 0;border-bottom:1px solid var(--border)}
 .job-wrap:last-child{border-bottom:none;padding-bottom:0}
 .job-wrap:first-child{padding-top:0}
+.job-wrap::before{content:'';position:absolute;left:-30px;top:39px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--border-hover);transition:border-color 0.25s,box-shadow 0.25s}
+.job-wrap:first-child::before{top:7px}
+.job-wrap:hover::before{border-color:var(--magenta);box-shadow:0 0 0 4px var(--magenta-dim),0 0 14px rgba(217,70,239,0.5)}
+.timeline::before{background:linear-gradient(180deg,var(--magenta) 0%,var(--indigo) 18%,var(--border) 40%,var(--border) 85%,transparent)!important}
+.bullets li::before{background:var(--grad)!important}
+.job-wrap.latest::before{border-color:var(--green);box-shadow:0 0 0 4px var(--green-dim)}
 
 .job-meta{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:6px;flex-wrap:wrap}
-.job-title{font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--text);letter-spacing:-0.01em}
+.job-title{font-family:var(--font-display);font-size:16.5px;font-weight:600;color:var(--text);letter-spacing:-0.01em}
 .job-date{font-family:var(--font-mono);font-size:11px;color:var(--text-3);white-space:nowrap;padding-top:3px;flex-shrink:0}
-.job-co{font-size:13px;color:var(--indigo);font-weight:500;margin-bottom:20px;letter-spacing:0.01em}
+.job-co{font-size:13px;color:var(--indigo-2);font-weight:500;margin-bottom:20px;letter-spacing:0.01em}
+.job-co .badge{display:inline-block;margin-left:8px;font-family:var(--font-mono);font-size:10px;font-weight:400;color:var(--green);background:var(--green-dim);border:1px solid rgba(52,211,153,0.22);padding:1px 8px;border-radius:20px;vertical-align:1px}
+
+.job-chips{display:flex;flex-wrap:wrap;gap:6px;margin:-6px 0 22px}
+.chip{font-family:var(--font-mono);font-size:10.5px;color:var(--text-2);border:1px solid var(--border);border-radius:20px;padding:3px 10px;background:var(--bg-surface)}
+
+.bullet-group+.bullet-group{margin-top:22px}
+.bullet-group-name{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px}
+.bullet-group-name svg{width:13px;height:13px;stroke:var(--indigo-2);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 
 .bullets{list-style:none;display:flex;flex-direction:column;gap:10px}
 .bullets li{font-size:14px;color:var(--text-2);padding-left:18px;position:relative;line-height:1.65;font-weight:300}
-.bullets li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:1px;background:var(--indigo);transition:width 0.2s var(--ease-out)}
+.bullets li::before{content:'';position:absolute;left:0;top:11px;width:5px;height:1px;background:var(--indigo);transition:width 0.2s var(--ease-out)}
+.bullets li strong{color:var(--text);font-weight:500}
 .job-wrap:hover .bullets li::before{width:8px}
 
 /* PROJECTS */
 .project-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
 
-.project-card{display:block;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:24px;text-decoration:none;transition:border-color 0.25s,background 0.25s,transform 0.25s var(--ease-out);position:relative;overflow:hidden}
-.project-card::before{content:'';position:absolute;inset:0;background:var(--indigo-glow);opacity:0;transition:opacity 0.25s}
+.project-card{display:block;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;text-decoration:none;transition:border-color 0.25s,background 0.25s,transform 0.25s var(--ease-out);position:relative;overflow:hidden}
 .project-card:hover{border-color:var(--border-hover);background:var(--bg-card-hover);transform:translateY(-2px)}
-.project-card:hover::before{opacity:1}
 
 .project-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.project-icon{width:36px;height:36px;border-radius:8px;background:var(--indigo-dim);border:1px solid rgba(99,102,241,0.2);display:flex;align-items:center;justify-content:center}
-.project-icon svg{width:16px;height:16px;stroke:var(--indigo);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.project-icon,.cert-icon{width:36px;height:36px;border-radius:8px;background:var(--indigo-dim);border:1px solid rgba(99,102,241,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.project-icon svg,.cert-icon svg{width:16px;height:16px;stroke:var(--indigo-2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .project-arrow{color:var(--text-3);font-size:16px;transition:color 0.2s,transform 0.2s var(--ease-spring)}
-.project-card:hover .project-arrow{color:var(--indigo);transform:translate(2px,-2px)}
+.project-card:hover .project-arrow{color:var(--indigo-2);transform:translate(2px,-2px)}
 
 .project-name{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px;letter-spacing:-0.01em}
 .project-desc{font-size:13px;color:var(--text-2);line-height:1.6;font-weight:300}
-.project-lang{margin-top:20px;font-family:var(--font-mono);font-size:11px;color:var(--green)}
+.project-term{margin-top:18px;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:10px 12px;font-family:var(--font-mono);font-size:10.5px;line-height:1.7;color:var(--text-3);overflow:hidden;white-space:nowrap}
+.project-term .ok{color:var(--green)}
+.project-term .warn{color:var(--amber)}
+.project-term .hi{color:var(--indigo-2)}
+.project-lang{margin-top:16px;font-family:var(--font-mono);font-size:11px;color:var(--green);display:flex;align-items:center;gap:6px}
+.project-lang::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green)}
 
 /* SKILLS */
-.skill-groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:32px 24px}
+.skill-groups{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:32px 24px}
 .skill-group-name{font-family:var(--font-mono);font-size:10.5px;color:var(--text-3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px}
 .tag-list{display:flex;flex-wrap:wrap;gap:6px}
 .tag{font-family:var(--font-mono);font-size:11.5px;color:var(--text-2);background:var(--bg-card);border:1px solid var(--border);padding:5px 10px;border-radius:5px;transition:color 0.2s,border-color 0.2s,background 0.2s;cursor:default}
@@ -121,33 +241,44 @@ section{padding:64px 0}
 
 /* CERTS */
 .cert-list{display:flex;flex-direction:column;gap:10px}
-.cert{display:flex;align-items:center;gap:16px;padding:18px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;transition:border-color 0.2s}
+.cert{position:relative;display:flex;align-items:center;gap:16px;padding:18px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;transition:border-color 0.2s;overflow:hidden}
 .cert:hover{border-color:var(--border-hover)}
-.cert-icon{width:38px;height:38px;border-radius:8px;background:var(--indigo-dim);border:1px solid rgba(99,102,241,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cert-icon svg{width:16px;height:16px;stroke:var(--indigo);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .cert-name{font-family:var(--font-display);font-size:14px;font-weight:600;color:var(--text)}
 .cert-meta{font-size:12px;color:var(--text-3);margin-top:2px;font-weight:300}
-.cert-badge{margin-left:auto;font-family:var(--font-mono);font-size:10.5px;color:var(--green);background:var(--green-dim);border:1px solid rgba(52,211,153,0.2);padding:4px 12px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.cert-badge{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10.5px;color:var(--amber);background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.22);padding:4px 12px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.cert-badge::before{content:'';width:6px;height:6px;border-radius:50%;border:1.5px solid var(--amber);border-right-color:transparent;animation:spin 1.4s linear infinite}
 
 /* EDUCATION */
 .edu-list{display:flex;flex-direction:column;gap:28px}
 .edu-degree{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px;letter-spacing:-0.01em}
-.edu-school{font-size:13px;color:var(--indigo);font-weight:500;margin-bottom:4px}
+.edu-school{font-size:13px;color:var(--indigo-2);font-weight:500;margin-bottom:4px}
 .edu-dates{font-family:var(--font-mono);font-size:11px;color:var(--text-3)}
 
 /* LANGUAGES */
 .lang-list{display:flex;flex-direction:column;gap:16px}
 .lang-row{display:flex;align-items:center;gap:12px}
-.lang-name{font-family:var(--font-display);font-size:14px;font-weight:500;width:90px;flex-shrink:0}
+.lang-name{font-family:var(--font-display);font-size:14px;font-weight:500;width:150px;flex-shrink:0}
 .lang-level{font-size:13px;color:var(--text-3);font-weight:300;flex:1}
 .lang-pips{display:flex;gap:4px;margin-left:auto}
-.pip{width:7px;height:7px;border-radius:50%;background:var(--border);transition:background 0.2s}
+.pip{width:7px;height:7px;border-radius:50%;background:var(--border)}
 .pip.on{background:var(--indigo)}
+
+/* CONTACT CTA */
+.cta{position:relative;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:40px 36px;overflow:hidden}
+.cta::before{content:'';position:absolute;right:-120px;top:-120px;width:360px;height:360px;background:radial-gradient(circle,rgba(217,70,239,0.22),transparent 65%);pointer-events:none}
+.cta::after{content:'';position:absolute;left:-140px;bottom:-160px;width:360px;height:360px;background:radial-gradient(circle,rgba(99,102,241,0.18),transparent 65%);pointer-events:none}
+.cta{border-color:transparent;background:linear-gradient(var(--bg-card),var(--bg-card)) padding-box,linear-gradient(120deg,rgba(99,102,241,0.6),rgba(217,70,239,0.6),rgba(244,114,182,0.3),var(--border) 70%) border-box}
+.cta h2 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cta-meta{position:relative;margin-top:22px;font-family:var(--font-mono);font-size:11px;color:var(--text-3);display:flex;align-items:center;gap:8px}
+.cta-meta .kicker-dot{display:inline-block}
+.cta h2{font-family:var(--font-display);font-size:clamp(24px,4vw,32px);font-weight:700;letter-spacing:-0.03em;line-height:1.15;margin-bottom:12px;position:relative}
+.cta p{color:var(--text-2);font-weight:300;max-width:500px;margin-bottom:24px;position:relative}
+.cta .hero-actions{opacity:1;animation:none;margin-bottom:0;position:relative}
 
 /* FOOTER */
 footer{padding:48px 0 56px;text-align:center}
 footer p{font-family:var(--font-mono);font-size:11.5px;color:var(--text-3)}
-footer a{color:var(--indigo);text-decoration:none}
+footer a{color:var(--indigo-2);text-decoration:none}
 footer a:hover{text-decoration:underline}
 
 /* SCROLL REVEAL */
@@ -158,38 +289,219 @@ footer a:hover{text-decoration:underline}
 .reveal-delay-3{transition-delay:0.24s}
 
 /* FOCUS */
-a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius:6px}
+
+/* COMMAND PALETTE */
+.kbd-btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10.5px;color:var(--text-3);background:var(--bg-card);border:1px solid var(--border);border-radius:7px;padding:5px 9px;cursor:pointer;transition:color 0.2s,border-color 0.2s}
+.kbd-btn:hover{color:var(--text);border-color:var(--magenta)}
+kbd{font-family:var(--font-mono);font-size:10px;color:var(--text-2);background:var(--bg-surface);border:1px solid var(--border-hover);border-bottom-width:2px;border-radius:4px;padding:1px 5px}
+.palette{position:fixed;inset:0;z-index:200;display:none;align-items:flex-start;justify-content:center;padding:14vh 16px 16px;background:rgba(4,5,9,0.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.palette.open{display:flex;animation:fadeIn 0.15s ease-out forwards}
+.palette-box{width:100%;max-width:520px;background:var(--bg-surface);border:1px solid var(--border-hover);border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(217,70,239,0.15),0 0 60px rgba(217,70,239,0.12);overflow:hidden;animation:pop 0.22s var(--ease-out)}
+@keyframes pop{from{transform:translateY(-8px) scale(0.98);opacity:0}to{transform:none;opacity:1}}
+.palette-input{width:100%;background:transparent;border:0;border-bottom:1px solid var(--border);padding:16px 18px;font-family:var(--font-mono);font-size:13px;color:var(--text);outline:none}
+.palette-input::placeholder{color:var(--text-3)}
+.palette-list{list-style:none;max-height:320px;overflow:auto;padding:6px}
+.palette-list li{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;font-size:13.5px;color:var(--text-2);cursor:pointer}
+.palette-list li .pi{width:26px;height:26px;border-radius:6px;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;color:var(--magenta);flex-shrink:0}
+.palette-list li .ph{margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--text-3)}
+.palette-list li.sel{background:linear-gradient(90deg,rgba(217,70,239,0.14),rgba(99,102,241,0.08));color:var(--text)}
+.palette-foot{display:flex;gap:14px;padding:10px 16px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:10px;color:var(--text-3)}
+
+/* TOAST */
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);z-index:210;background:var(--bg-surface);border:1px solid rgba(217,70,239,0.4);color:var(--text);font-family:var(--font-mono);font-size:12px;padding:10px 16px;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,0.5),0 0 24px rgba(217,70,239,0.2);opacity:0;pointer-events:none;transition:opacity 0.25s,transform 0.25s var(--ease-out)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* BACK TO TOP */
+.to-top{position:fixed;right:20px;bottom:20px;z-index:80;width:42px;height:42px;border-radius:50%;border:1px solid var(--border-hover);background:rgba(14,17,23,0.85);backdrop-filter:blur(8px);color:var(--text-2);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity 0.3s,transform 0.3s var(--ease-out),border-color 0.2s,color 0.2s}
+.to-top.show{opacity:1;transform:none;pointer-events:auto}
+.to-top:hover{border-color:var(--magenta);color:var(--text)}
+.to-top svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.to-top .ring{position:absolute;inset:-1px;width:44px;height:44px;transform:rotate(-90deg)}
+.to-top .ring circle{fill:none;stroke:url(#ttg);stroke-width:2;stroke-dasharray:132;stroke-dashoffset:132}
+
+/* PROJECT CARD tilt */
+.project-card{transform-style:preserve-3d;will-change:transform}
+.project-card:hover{border-color:rgba(217,70,239,0.35)}
+.project-card:hover .project-icon{background:var(--magenta-dim);border-color:rgba(217,70,239,0.3)}
+.project-card:hover .project-icon svg{stroke:var(--pink)}
+
+/* Gradient-hover tags */
+.tag:hover{border-color:rgba(217,70,239,0.45);color:var(--text);box-shadow:0 0 14px rgba(217,70,239,0.15)}
 
 /* RESPONSIVE */
+@media(max-width:1120px){
+  .hero-visual{left:auto;right:-140px;opacity:0;animation:fadeInDim 1.4s var(--ease-out) 0.5s forwards}
+  @keyframes fadeInDim{to{opacity:0.28}}
+}
+@media(max-width:720px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stats .stat:last-child{grid-column:span 2}
+  .journey{grid-template-columns:1fr;gap:0}
+  .j-arrow{width:auto;height:30px}
+  .j-arrow svg{transform:rotate(90deg)}
+  .topnav a.nl,.kbd-btn{display:none}
+  .blob.b1{width:340px;height:340px}
+  .blob.b2{width:300px;height:300px}
+  .blob.b3{width:220px;height:220px}
+}
 @media(max-width:600px){
-  .wrap{padding:0 20px}
-  .hero{padding:64px 0 56px}
+  .wrap,.topnav-inner{padding:0 16px}
+  .hero{padding:72px 0 56px}
+  .hero-visual{width:340px;height:340px;right:-170px;top:20px}
   section{padding:48px 0}
+  .stats{padding-bottom:48px}
+  .stat-num{font-size:26px}
   .job-meta{flex-direction:column;gap:4px}
   .job-date{padding-top:0}
   .cert-badge{display:none}
   .project-grid{grid-template-columns:1fr}
-  .skill-groups{grid-template-columns:repeat(2,1fr);gap:24px 16px}
+  .skill-groups{grid-template-columns:1fr 1fr;gap:24px 16px}
+  .timeline{padding-left:22px}
+  .job-wrap::before{left:-22px}
+  .timeline::before{left:5px}
+  .lang-name{width:auto;flex:1}
+  .rail{left:5px}
+  .lang-level{flex:none;text-align:right}
+  .cta{padding:28px 20px}
 }
 
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
-  .reveal{opacity:1;transform:none}
+  .reveal,.kicker,h1,.hero-role,.hero-sub,.hero-actions,.contact-bar{opacity:1;transform:none}
+  .hero-visual{opacity:0.9}
+  .stat-bar{width:100%}
+}
+
+/* PRINT — clean one-column CV when saved as PDF */
+@media print{
+  @page{margin:14mm}
+  :root{--bg:#fff;--bg-card:#fff;--bg-surface:#fff;--text:#111;--text-2:#333;--text-3:#666;--border:#ddd;--border-hover:#ccc;--indigo:#3730A3;--indigo-2:#3730A3;--green:#047857}
+  body{background:#fff;color:#111;font-size:11pt;line-height:1.5}
+  #progress,.topnav,.hero-visual,.hero-grid,.aurora,#net,.ambient,.rail,.grain,.palette,.toast,.to-top,.hero-actions,.cta-section,.section-divider,.project-term,.journey,.stat-bar{display:none!important}
+  .reveal,.kicker,h1,.hero-role,.hero-sub,.contact-bar{opacity:1!important;transform:none!important;animation:none!important}
+  h1 em{color:#3730A3;background:none;-webkit-text-fill-color:#3730A3}
+  .hero{padding:0 0 12px}
+  section{padding:14px 0;break-inside:auto}
+  .section-label{margin-bottom:12px}
+  .stats{padding:8px 0 4px;gap:6px}
+  .stat{padding:8px 10px}
+  .stat-num{font-size:18pt}
+  .job-wrap{padding:12px 0;break-inside:avoid}
+  .timeline{padding-left:0}.timeline::before,.job-wrap::before{display:none}
+  .project-card,.cert,.stat{border:1px solid #ddd}
+  .hero-role .caret{display:none}
+  a{color:inherit}
 }
 </style>
 </head>
 <body>
 
 <div id="progress" role="progressbar" aria-label="Page scroll progress"></div>
+<canvas id="net" aria-hidden="true"></canvas>
+<div class="ambient" aria-hidden="true"><div class="g g1"></div><div class="g g2"></div><div class="g g3"></div></div>
 
-<main>
+<!-- STICKY NAV -->
+<nav class="topnav" id="topnav" aria-label="Sections">
+  <div class="topnav-inner">
+    <a class="topnav-name" href="#top"><span class="monogram" aria-hidden="true">DS</span>Džejna Sejfić</a>
+    <a class="nl" href="#experience">Experience</a>
+    <a class="nl" href="#projects">Projects</a>
+    <a class="nl" href="#skills">Skills</a>
+    <button class="kbd-btn" type="button" data-open-palette aria-label="Open quick menu"><kbd class="mod-key">⌘</kbd><kbd>K</kbd></button>
+    <a class="btn btn-primary btn-sm" href="mailto:dzejnasfc@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<main id="top">
+<div class="rail" id="rail" aria-hidden="true"><div class="rail-fill" id="rail-fill"></div><div class="rail-head" id="rail-head"></div></div>
 <!-- HERO -->
 <header class="hero">
   <div class="hero-grid" aria-hidden="true"></div>
+  <div class="aurora" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+
+  <!-- Animated network graphic: election systems on the outer ring, security tooling inside, shield at the core -->
+  <div class="hero-visual" aria-hidden="true">
+    <svg viewBox="0 0 440 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="core" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#6366F1" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#6366F1" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#6366F1" stop-opacity="0.9"/>
+          <stop offset="60%" stop-color="#6366F1" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+
+      <circle cx="220" cy="220" r="200" fill="none" stroke="#1E2535"/>
+      <circle cx="220" cy="220" r="140" fill="none" stroke="#1E2535"/>
+      <circle cx="220" cy="220" r="80" fill="none" stroke="#1E2535"/>
+      <g class="hv-ring-spin"><circle cx="220" cy="220" r="200" fill="none" stroke="url(#ringGrad)" stroke-width="1.2" stroke-dasharray="120 1137"/></g>
+      <g class="hv-ring-spin-rev"><circle cx="220" cy="220" r="140" fill="none" stroke="#D946EF" stroke-opacity="0.55" stroke-width="1" stroke-dasharray="2 10"/></g>
+      <g class="hv-ring-spin"><circle cx="220" cy="220" r="80" fill="none" stroke="#F472B6" stroke-opacity="0.7" stroke-width="1.2" stroke-dasharray="40 463"/></g>
+
+      <!-- links from core to nodes -->
+      <path id="l1" class="hv-link" d="M220 220 L78 79"/>
+      <path id="l2" class="hv-link" d="M220 220 L400 160"/>
+      <path id="l3" class="hv-link" d="M220 220 L150 412"/>
+      <path id="l4" class="hv-link" d="M220 220 L326 121"/>
+      <path id="l5" class="hv-link" d="M220 220 L110 270"/>
+      <path id="l6" class="hv-link" d="M220 220 L310 330"/>
+
+      <!-- packets travelling toward the core -->
+      <circle r="2.6" fill="#818CF8"><animateMotion dur="3.2s" repeatCount="indefinite" path="M78 79 L220 220"/></circle>
+      <circle r="2.8" fill="#D946EF"><animateMotion dur="4s" begin="0.8s" repeatCount="indefinite" path="M400 160 L220 220"/></circle>
+      <circle r="2.4" fill="#F472B6"><animateMotion dur="3.4s" begin="2.4s" repeatCount="indefinite" path="M220 220 L78 79"/></circle>
+      <circle r="2.6" fill="#818CF8"><animateMotion dur="3.6s" begin="1.4s" repeatCount="indefinite" path="M150 412 L220 220"/></circle>
+      <circle r="2.2" fill="#34D399"><animateMotion dur="2.6s" begin="0.3s" repeatCount="indefinite" path="M326 121 L220 220"/></circle>
+      <circle r="2.2" fill="#F59E0B"><animateMotion dur="2.9s" begin="1.1s" repeatCount="indefinite" path="M110 270 L220 220"/></circle>
+      <circle r="2.2" fill="#818CF8"><animateMotion dur="3.1s" begin="2s" repeatCount="indefinite" path="M310 330 L220 220"/></circle>
+
+      <!-- outer ring nodes: election systems -->
+      <g>
+        <circle cx="78" cy="79" r="6" fill="#131925" stroke="#6366F1"/>
+        <text class="hv-label" x="92" y="74">PCOS</text>
+        <circle cx="400" cy="160" r="6" fill="#131925" stroke="#6366F1"/>
+        <text class="hv-label" x="352" y="146">CCOS</text>
+        <circle cx="150" cy="412" r="6" fill="#131925" stroke="#6366F1"/>
+        <text class="hv-label" x="164" y="424">EMP</text>
+      </g>
+      <!-- inner ring nodes: security & network -->
+      <g>
+        <circle cx="326" cy="121" r="5" fill="#131925" stroke="#34D399"/>
+        <text class="hv-label" x="300" y="106">CISCO</text>
+        <circle cx="110" cy="270" r="5" fill="#131925" stroke="#34D399"/>
+        <text class="hv-label" x="62" y="292">LOGS</text>
+        <circle cx="310" cy="330" r="5" fill="#131925" stroke="#34D399"/>
+        <text class="hv-label" x="322" y="346">SIEM</text>
+      </g>
+
+      <!-- core -->
+      <circle cx="220" cy="220" r="62" fill="url(#core)"/>
+      <circle cx="220" cy="220" r="30" fill="#0E1117" stroke="#2D3A52"/>
+      <circle cx="220" cy="220" r="30" fill="none" stroke="#6366F1" stroke-opacity="0.6">
+        <animate attributeName="r" values="30;46" dur="2.8s" repeatCount="indefinite"/>
+        <animate attributeName="stroke-opacity" values="0.6;0" dur="2.8s" repeatCount="indefinite"/>
+      </circle>
+      <path d="M220 205 l11 4.5 v8 c0 7-4.8 12.3-11 14.5 c-6.2-2.2-11-7.5-11-14.5 v-8 z" fill="none" stroke="#818CF8" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M215.5 219 l3.2 3.2 l6-6.2" fill="none" stroke="#34D399" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
   <div class="wrap hero-inner">
-    <div class="kicker"><span class="kicker-dot" aria-hidden="true"></span>Available · Sarajevo, Bosnia and Herzegovina</div>
+    <div class="kicker"><span class="kicker-dot" aria-hidden="true"></span>Open to new roles · Sarajevo, BiH</div>
     <h1>Džejna <em>Sejfić</em></h1>
-    <p class="hero-sub">IT professional with hands-on experience operating critical national election infrastructure. Building toward security engineering.</p>
+    <p class="hero-role" aria-label="Election technology, system administration, building toward security engineering"><span class="prompt">~$</span> <span id="typed">election technology</span><span class="caret" aria-hidden="true"></span></p>
+    <p class="hero-sub">IT professional who has worked on <strong>both sides of national election infrastructure</strong>: the election authority and the technology vendor. Now building toward security engineering.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="mailto:dzejnasfc@gmail.com">
+        <svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>Get in touch
+      </a>
+      <button class="btn" type="button" onclick="window.print()">
+        <svg viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg>Save CV as PDF
+      </button>
+    </div>
     <nav class="contact-bar" aria-label="Contact links">
       <a href="mailto:dzejnasfc@gmail.com">dzejnasfc@gmail.com</a>
       <a href="https://github.com/dzejkv" target="_blank" rel="noopener">github.com/dzejkv</a>
@@ -198,47 +510,141 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
   </div>
 </header>
 
+<!-- STATS -->
+<div class="wrap">
+  <div class="stats" aria-label="Highlights">
+    <div class="stat spot reveal">
+      <div class="stat-num"><span data-count="5569">5,569</span></div>
+      <div class="stat-label">ballot-scanner records tracked from configuration to pallet</div>
+      <span class="stat-bar" aria-hidden="true"></span>
+    </div>
+    <div class="stat spot reveal reveal-delay-1">
+      <div class="stat-num"><span data-count="16">16</span></div>
+      <div class="stat-label">mock-election incidents analysed and documented</div>
+      <span class="stat-bar" aria-hidden="true"></span>
+    </div>
+    <div class="stat spot reveal reveal-delay-2">
+      <div class="stat-num"><span data-count="3">3</span></div>
+      <div class="stat-label">working languages for documentation: BS · HR · SR</div>
+      <span class="stat-bar" aria-hidden="true"></span>
+    </div>
+  </div>
+</div>
+
 <div class="section-divider"></div>
 
 <!-- PROFILE -->
 <section aria-labelledby="profile-heading">
   <div class="wrap">
-    <p class="section-label" id="profile-heading">Profile</p>
+    <p class="section-label" id="profile-heading"><span class="num">01</span> Profile</p>
     <p class="profile-body reveal">
-      IT professional and final-year BSc student (graduating September 2026) with direct experience supporting <strong>national election systems</strong> under zero-tolerance conditions. At CIK BIH I administered user access and permissions, made live changes to <strong>Cisco network infrastructure</strong>, and analysed system logs in real time — in an environment where failure is not an option. Alongside this, I am actively building toward <strong>SOC operations and network security</strong> through certifications and independent projects. I thrive in structured, high-stakes environments that demand precision, clear documentation, and reliable execution.
+      I'm an IT professional from Sarajevo who has worked on <strong>both sides of national elections</strong> in Bosnia and Herzegovina. At the Central Election Commission (CIK BiH) I managed user access, configured <strong>Cisco network devices</strong> and monitored system logs. At <strong>Smartmatic</strong> I moved to the vendor side: tracking ballot scanners through production, testing ballot-mark recognition, localising software and documentation into Bosnian, Croatian and Serbian, and preparing training for election staff.
     </p>
+    <p class="profile-body reveal" style="margin-top:18px">
+      I studied Information Technology at International Burch University, and I'm now working toward <strong>SOC and network security</strong> roles through the Google Cybersecurity Certificate, Cisco CCNA and my own log-analysis projects. I like work where details matter: careful checks, clear documentation and systems people can trust.
+    </p>
+
+    <div class="journey reveal" aria-label="Career path">
+      <div class="j-node spot">
+        <div class="j-k">Election authority</div>
+        <div class="j-t">CIK BiH</div>
+        <div class="j-d">Access control, Cisco networks, live log monitoring</div>
+      </div>
+      <div class="j-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-5-5l5 5-5 5"/></svg></div>
+      <div class="j-node spot">
+        <div class="j-k">Technology vendor</div>
+        <div class="j-t">Smartmatic</div>
+        <div class="j-d">Scanner production, testing, localisation, training</div>
+      </div>
+      <div class="j-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-5-5l5 5-5 5"/></svg></div>
+      <div class="j-node next spot">
+        <div class="j-k">Next</div>
+        <div class="j-t">Security engineering</div>
+        <div class="j-d">SOC operations, detection, network security</div>
+      </div>
+    </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
 <!-- EXPERIENCE -->
-<section aria-labelledby="exp-heading">
+<section id="experience" aria-labelledby="exp-heading">
   <div class="wrap">
-    <p class="section-label" id="exp-heading">Work Experience</p>
+    <p class="section-label" id="exp-heading"><span class="num">02</span> Work Experience</p>
+
+    <div class="timeline">
+
+    <div class="job-wrap latest reveal">
+      <div class="job-meta">
+        <span class="job-title">Election Technology &amp; Localization Specialist</span>
+        <span class="job-date">Jul 2026 — Nov 2026</span>
+      </div>
+      <div class="job-co">Smartmatic · Sarajevo</div>
+      <div class="job-chips" aria-label="Systems">
+        <span class="chip">PCOS</span><span class="chip">CCOS</span><span class="chip">EMP</span><span class="chip">VIU</span><span class="chip">Excel</span><span class="chip">BS · HR · SR</span>
+      </div>
+
+      <div class="bullet-group">
+        <div class="bullet-group-name"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4"/></svg>Production &amp; logistics</div>
+        <ul class="bullets">
+          <li>Built and validated an Excel production tracker for <strong>5,569 ballot-scanner records</strong>, linking polling-station allocations and SIM assignments to device configuration, independent verification and palletization.</li>
+          <li>Prepared a two-shift scanner production plan for warehouse management, covering staffing, work assignments, throughput targets and daily progress reporting.</li>
+          <li>Prepared bilingual equipment handover records for CCOS kits, PCOS scanners and VIU devices, reconciling inventory checklists, quantities, serial numbers and polling-station codes.</li>
+        </ul>
+      </div>
+
+      <div class="bullet-group">
+        <div class="bullet-group-name"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h7M7.5 5v1.5c0 4-2 7-4.5 8.5M5 10c1.2 2.4 3.6 4.3 6 5"/><path d="M13 20l4-9 4 9M14.5 17h5"/></svg>Documentation &amp; localization</div>
+        <ul class="bullets">
+          <li>Proofread PCOS, CCOS and EMP release documentation in Bosnian, Croatian and Serbian Cyrillic against English source material. Translated the CCOS Quick Reference Guide into Croatian and Serbian, and updated EMP operator and controller guides to match the software screens.</li>
+          <li>Updated and validated scanner interface translations across Bosnian, Croatian and Serbian. Wrote English-language specifications for the software team with annotated screenshots and localized text for diagnostics, smart-card result collection and transmission.</li>
+        </ul>
+      </div>
+
+      <div class="bullet-group">
+        <div class="bullet-group-name"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2h9"/></svg>Testing, incidents &amp; training</div>
+        <ul class="bullets">
+          <li>Designed a ballot-mark recognition test using marks filled to <strong>10%, 15% and 20%</strong>, and wrote a bilingual report showing how each fill level affected valid, blank and invalid ballot counts across election contests.</li>
+          <li>Analyzed and documented <strong>16 mock-election incidents</strong> in an English management report and bilingual training materials, covering scanner jams, login issues and results transmission.</li>
+          <li>Reconciled precinct-level ballot totals and checked which tabulators had results recorded in the source report.</li>
+          <li>Prepared training materials for municipal and central election commission staff, explaining operator and controller responsibilities, paper result-form entry, validation and election-night handoffs.</li>
+        </ul>
+      </div>
+    </div>
 
     <div class="job-wrap reveal">
       <div class="job-meta">
         <span class="job-title">System Administrator — 2025 General Elections</span>
         <span class="job-date">Nov 2025 — April 2026</span>
       </div>
-      <div class="job-co">Central Election Commission of Bosnia and Herzegovina (CIK BIH) · Sarajevo</div>
+      <div class="job-co">Central Election Commission of Bosnia and Herzegovina (CIK BiH) · Sarajevo</div>
       <ul class="bullets">
-        <li>Administered user access and permissions across critical national election systems, enforcing strict access control policies in a zero-tolerance environment.</li>
-        <li>Made live configuration changes to Cisco network infrastructure during active election operations, including adding and managing network devices.</li>
-        <li>Monitored system logs and analysed events in real time; conducted root-cause analyses to resolve incidents before they escalated.</li>
-        <li>Maintained 100% system uptime throughout the election cycle by implementing monitoring, escalation, and recovery protocols.</li>
-        <li>Minimised operational risk through data integrity checks, detailed documentation, and decisive action under high-pressure conditions.</li>
-        <li>Bridged technical and non-technical teams by translating system issues into clear, actionable guidance.</li>
+        <li>Managed user access and permissions for national election systems.</li>
+        <li>Added and configured Cisco network devices during election operations.</li>
+        <li>Monitored system logs and reported issues to the IT team.</li>
       </ul>
     </div>
 
-    <div class="job-wrap reveal reveal-delay-1">
+    <div class="job-wrap reveal">
+      <div class="job-meta">
+        <span class="job-title">E-commerce Developer (Freelance)</span>
+        <span class="job-date">Apr 2025 — Apr 2026</span>
+      </div>
+      <div class="job-co">Upwork · Remote</div>
+      <ul class="bullets">
+        <li>Built and maintained e-commerce solutions for 15+ international clients, focused on performance and long-term maintainability.</li>
+        <li>Streamlined user workflows by removing redundant steps and simplifying inefficient logic.</li>
+        <li>Wrote clean, documented and maintainable code; iterated on solutions based on client feedback.</li>
+      </ul>
+    </div>
+
+    <div class="job-wrap reveal">
       <div class="job-meta">
         <span class="job-title">IT Assistant — 2024 Elections</span>
         <span class="job-date">Oct – Dec 2024</span>
       </div>
-      <div class="job-co">Central Election Commission of Bosnia and Herzegovina (CIK BIH) · Sarajevo</div>
+      <div class="job-co">Central Election Commission of Bosnia and Herzegovina (CIK BiH) · Sarajevo</div>
       <ul class="bullets">
         <li>Supported national election infrastructure by adhering strictly to standardised operating procedures in a regulated environment.</li>
         <li>Reduced system downtime through proactive communication and close coordination with the wider IT team.</li>
@@ -246,20 +652,7 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
       </ul>
     </div>
 
-    <div class="job-wrap reveal reveal-delay-2">
-      <div class="job-meta">
-        <span class="job-title">E-commerce Developer (Freelance)</span>
-        <span class="job-date">Apr 2025 — Present</span>
-      </div>
-      <div class="job-co">Upwork · Remote</div>
-      <ul class="bullets">
-        <li>Built and maintained e-commerce solutions for 50+ international clients, focused on performance and long-term maintainability.</li>
-        <li>Streamlined user workflows by removing redundant steps and simplifying inefficient logic.</li>
-        <li>Wrote clean, documented, and maintainable code; iterated on solutions based on client feedback.</li>
-      </ul>
-    </div>
-
-    <div class="job-wrap reveal reveal-delay-3">
+    <div class="job-wrap reveal">
       <div class="job-meta">
         <span class="job-title">Customer Support Agent</span>
         <span class="job-date">Feb – Dec 2022</span>
@@ -271,18 +664,19 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
       </ul>
     </div>
 
+    </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
 <!-- PROJECTS -->
-<section aria-labelledby="projects-heading">
+<section id="projects" aria-labelledby="projects-heading">
   <div class="wrap">
-    <p class="section-label" id="projects-heading">Security Projects</p>
+    <p class="section-label" id="projects-heading"><span class="num">03</span> Security Projects</p>
     <div class="project-grid">
 
-      <a class="project-card reveal" href="https://github.com/dzejkv/01-log-analysis-ai" target="_blank" rel="noopener">
+      <a class="project-card spot reveal" href="https://github.com/dzejkv/01-log-analysis-ai" target="_blank" rel="noopener">
         <div class="project-header">
           <div class="project-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
@@ -291,10 +685,15 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
         </div>
         <div class="project-name">Log Analysis Tool</div>
         <div class="project-desc">Analyses authentication logs and detects suspicious login activity, including failed attempts and potential brute-force patterns.</div>
+        <div class="project-term" aria-hidden="true">
+          <div><span class="hi">$</span> analyze auth.log</div>
+          <div><span class="warn">!</span> repeated failed logins from one source</div>
+          <div><span class="ok">✓</span> flagged as possible brute force</div>
+        </div>
         <div class="project-lang">Python</div>
       </a>
 
-      <a class="project-card reveal reveal-delay-1" href="https://github.com/dzejkv/ai-soc-analyst" target="_blank" rel="noopener">
+      <a class="project-card spot reveal reveal-delay-1" href="https://github.com/dzejkv/ai-soc-analyst" target="_blank" rel="noopener">
         <div class="project-header">
           <div class="project-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
@@ -302,7 +701,12 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
           <span class="project-arrow" aria-hidden="true">↗</span>
         </div>
         <div class="project-name">AI SOC Analyst</div>
-        <div class="project-desc">AI-powered SOC assistant that queries security logs and explains threats in natural language — built to explore detection engineering workflows.</div>
+        <div class="project-desc">AI-powered SOC assistant that queries security logs and explains threats in natural language, built to explore detection engineering workflows.</div>
+        <div class="project-term" aria-hidden="true">
+          <div><span class="hi">&gt;</span> what happened on this host?</div>
+          <div><span class="warn">!</span> unusual sign-in pattern found</div>
+          <div><span class="ok">✓</span> explained in plain language</div>
+        </div>
         <div class="project-lang">Python</div>
       </a>
 
@@ -315,10 +719,10 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
 <!-- CERTIFICATIONS -->
 <section aria-labelledby="certs-heading">
   <div class="wrap">
-    <p class="section-label" id="certs-heading">Certifications</p>
+    <p class="section-label" id="certs-heading"><span class="num">04</span> Certifications</p>
     <div class="cert-list">
 
-      <div class="cert reveal">
+      <div class="cert spot reveal">
         <div class="cert-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
         </div>
@@ -326,10 +730,10 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
           <div class="cert-name">Google Cybersecurity Certificate</div>
           <div class="cert-meta">Google · Coursera</div>
         </div>
-        <span class="cert-badge">In Progress</span>
+        <span class="cert-badge">In progress</span>
       </div>
 
-      <div class="cert reveal reveal-delay-1">
+      <div class="cert spot reveal reveal-delay-1">
         <div class="cert-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
         </div>
@@ -337,7 +741,7 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
           <div class="cert-name">Cisco CCNA</div>
           <div class="cert-meta">Cisco Networking Academy</div>
         </div>
-        <span class="cert-badge">In Progress</span>
+        <span class="cert-badge">In progress</span>
       </div>
 
     </div>
@@ -347,9 +751,9 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
 <div class="section-divider"></div>
 
 <!-- SKILLS -->
-<section aria-labelledby="skills-heading">
+<section id="skills" aria-labelledby="skills-heading">
   <div class="wrap">
-    <p class="section-label" id="skills-heading">Skills</p>
+    <p class="section-label" id="skills-heading"><span class="num">05</span> Skills</p>
     <div class="skill-groups reveal">
 
       <div>
@@ -361,6 +765,28 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
           <span class="tag">Incident Response</span>
           <span class="tag">Threat Detection</span>
           <span class="tag">SIEM</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-name">Election Technology</div>
+        <div class="tag-list">
+          <span class="tag">PCOS / CCOS</span>
+          <span class="tag">EMP</span>
+          <span class="tag">Ballot-mark Testing</span>
+          <span class="tag">Results Reconciliation</span>
+          <span class="tag">Device Logistics</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-name">Localization &amp; Docs</div>
+        <div class="tag-list">
+          <span class="tag">Technical Translation</span>
+          <span class="tag">UI Localization QA</span>
+          <span class="tag">Software Specs</span>
+          <span class="tag">Training Materials</span>
+          <span class="tag">Incident Reports</span>
         </div>
       </div>
 
@@ -384,6 +810,7 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
           <span class="tag">Windows</span>
           <span class="tag">Git</span>
           <span class="tag">GitHub</span>
+          <span class="tag">Excel</span>
           <span class="tag">Shopify</span>
           <span class="tag">Microsoft Office</span>
         </div>
@@ -396,6 +823,7 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
           <span class="tag">Root-cause Analysis</span>
           <span class="tag">OOP</span>
           <span class="tag">Process Compliance</span>
+          <span class="tag">Production Planning</span>
         </div>
       </div>
 
@@ -408,12 +836,12 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
 <!-- EDUCATION -->
 <section aria-labelledby="edu-heading">
   <div class="wrap">
-    <p class="section-label" id="edu-heading">Education</p>
+    <p class="section-label" id="edu-heading"><span class="num">06</span> Education</p>
     <div class="edu-list">
       <div class="reveal">
         <div class="edu-degree">BSc in Information Technology</div>
         <div class="edu-school">International Burch University · Sarajevo, Bosnia and Herzegovina</div>
-        <div class="edu-dates">Oct 2022 — Sep 2026 (expected) · Information and Communication Technologies</div>
+        <div class="edu-dates">Oct 2022 — Present</div>
       </div>
       <div class="reveal reveal-delay-1">
         <div class="edu-degree">IGCSE &amp; AS/A Levels — Cambridge International</div>
@@ -429,29 +857,61 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
 <!-- LANGUAGES -->
 <section aria-labelledby="lang-heading">
   <div class="wrap">
-    <p class="section-label" id="lang-heading">Languages</p>
+    <p class="section-label" id="lang-heading"><span class="num">07</span> Languages</p>
     <div class="lang-list reveal">
       <div class="lang-row">
         <span class="lang-name">Bosnian</span>
         <span class="lang-level">Native</span>
-        <div class="lang-pips" aria-label="5 of 5">
+        <div class="lang-pips" role="img" aria-label="5 of 5">
+          <div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div>
+        </div>
+      </div>
+      <div class="lang-row">
+        <span class="lang-name">Croatian · Serbian</span>
+        <span class="lang-level">Professional working</span>
+        <div class="lang-pips" role="img" aria-label="5 of 5">
           <div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div>
         </div>
       </div>
       <div class="lang-row">
         <span class="lang-name">English</span>
         <span class="lang-level">Proficient · C2</span>
-        <div class="lang-pips" aria-label="5 of 5">
+        <div class="lang-pips" role="img" aria-label="5 of 5">
           <div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div>
         </div>
       </div>
       <div class="lang-row">
         <span class="lang-name">German</span>
         <span class="lang-level">Basic · A2 / B1 spoken</span>
-        <div class="lang-pips" aria-label="2 of 5">
+        <div class="lang-pips" role="img" aria-label="2 of 5">
           <div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="cta-section" aria-labelledby="cta-heading">
+  <div class="wrap">
+    <div class="cta reveal">
+      <h2 id="cta-heading">Let's <span>talk.</span></h2>
+      <p>Open to roles in SOC operations, network security and election technology. Based in Sarajevo, open to remote work.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="mailto:dzejnasfc@gmail.com">
+          <svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>dzejnasfc@gmail.com
+        </a>
+        <button class="btn" type="button" data-copy-email>
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>Copy email
+        </button>
+        <a class="btn" href="https://github.com/dzejkv" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M9 19c-4 1.5-4-2-6-2.5m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 00-1.3-3.2 4.2 4.2 0 00-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 00-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 00-.1 3.2A4.6 4.6 0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>GitHub
+        </a>
+        <button class="btn" type="button" onclick="window.print()">
+          <svg viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg>Save CV as PDF
+        </button>
+      </div>
+      <div class="cta-meta"><span class="kicker-dot" aria-hidden="true"></span><span id="localtime">Sarajevo, Bosnia and Herzegovina</span></div>
     </div>
   </div>
 </section>
@@ -464,28 +924,280 @@ a:focus-visible{outline:2px solid var(--indigo);outline-offset:3px;border-radius
   </div>
 </footer>
 
+<!-- QUICK MENU (Ctrl/⌘ + K) -->
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Quick menu">
+  <div class="palette-box">
+    <input class="palette-input" id="palette-input" type="text" placeholder="Jump to a section or run an action…" autocomplete="off" spellcheck="false" aria-controls="palette-list"/>
+    <ul class="palette-list" id="palette-list" role="listbox"></ul>
+    <div class="palette-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> move</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<button class="to-top" id="to-top" type="button" aria-label="Back to top">
+  <svg class="ring" viewBox="0 0 44 44" aria-hidden="true"><defs><linearGradient id="ttg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="0.6" stop-color="#D946EF"/><stop offset="1" stop-color="#F472B6"/></linearGradient></defs><circle cx="22" cy="22" r="21"/></svg>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m0 0l-6 6m6-6l6 6"/></svg>
+</button>
+
+<div class="grain" aria-hidden="true"></div>
+
 <script>
 (function(){
-  // Scroll progress bar
-  var bar=document.getElementById('progress');
-  function updateBar(){
-    var s=document.documentElement,scrolled=s.scrollTop||document.body.scrollTop,total=s.scrollHeight-s.clientHeight;
-    bar.style.width=(total>0?(scrolled/total*100):0)+'%';
-  }
-  window.addEventListener('scroll',updateBar,{passive:true});
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Intersection observer for scroll reveals
+  // Scroll progress bar + sticky nav
+  var bar=document.getElementById('progress'),nav=document.getElementById('topnav');
+  function onScroll(){
+    var s=document.documentElement,y=s.scrollTop||document.body.scrollTop,total=s.scrollHeight-s.clientHeight;
+    bar.style.width=(total>0?(y/total*100):0)+'%';
+    nav.classList.toggle('show',y>420);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // Active section highlight in nav
+  var links=document.querySelectorAll('.topnav a.nl');
+  if('IntersectionObserver' in window){
+    var so=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){links.forEach(function(l){l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id)})}
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    ['experience','projects','skills'].forEach(function(id){var el=document.getElementById(id);if(el)so.observe(el)});
+  }
+
+  // Count-up numbers
+  function countUp(el){
+    var target=+el.getAttribute('data-count'),start=null,dur=1400;
+    if(reduce){el.textContent=target.toLocaleString('en-US');return}
+    function step(t){
+      if(!start)start=t;
+      var p=Math.min((t-start)/dur,1),v=Math.round(target*(1-Math.pow(1-p,3)));
+      el.textContent=v.toLocaleString('en-US');
+      if(p<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Scroll reveals
   var els=document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          var n=e.target.querySelector('[data-count]');if(n)countUp(n);
+          io.unobserve(e.target);
+        }
       });
     },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
     els.forEach(function(el){io.observe(el)});
   } else {
     els.forEach(function(el){el.classList.add('visible')});
   }
+
+  // Cursor spotlight on cards
+  document.querySelectorAll('.spot').forEach(function(c){
+    c.addEventListener('pointermove',function(ev){
+      var r=c.getBoundingClientRect();
+      c.style.setProperty('--mx',(ev.clientX-r.left)+'px');
+      c.style.setProperty('--my',(ev.clientY-r.top)+'px');
+    });
+  });
+
+  // Typed role line
+  var roles=['election technology','system administration','localization & QA','building toward security engineering'];
+  var typed=document.getElementById('typed');
+  if(typed&&!reduce){
+    var ri=0,ci=roles[0].length,del=true;
+    setTimeout(function tick(){
+      var w=roles[ri];
+      if(del){ci--;if(ci<=0){del=false;ri=(ri+1)%roles.length}}
+      else{ci++;if(ci>=roles[ri].length){del=true;typed.textContent=roles[ri];return setTimeout(tick,2200)}}
+      typed.textContent=roles[ri].slice(0,Math.max(ci,0));
+      setTimeout(tick,del?28:55);
+    },2400);
+  }
+
+  // Pause SVG animations for reduced motion
+  if(reduce){var svg=document.querySelector('.hero-visual svg');if(svg&&svg.pauseAnimations)svg.pauseAnimations()}
+
+  // ---------- Particle network behind the hero ----------
+  var cv=document.getElementById('net'),hero=document.querySelector('.hero');
+  if(cv&&cv.getContext){
+    var ctx=cv.getContext('2d'),pts=[],W=0,H=0,dpr=Math.min(window.devicePixelRatio||1,2),mouse={x:-9999,y:-9999},running=true,raf=null;
+    var cols=['99,102,241','217,70,239','244,114,182','129,140,248'];
+    function size(){
+      W=window.innerWidth;H=window.innerHeight;
+      cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+      var n=Math.min(90,Math.round(W*H/15000));pts=[];
+      for(var i=0;i<n;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.6+.6,c:cols[i%cols.length]});
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<pts.length;i++){
+        var p=pts[i];
+        if(!reduce){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1}
+        var mdx=p.x-mouse.x,mdy=p.y-mouse.y,md=Math.sqrt(mdx*mdx+mdy*mdy);
+        if(md<170){
+          ctx.strokeStyle='rgba(217,70,239,'+(0.35*(1-md/170))+')';ctx.lineWidth=1;
+          ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke();
+          if(!reduce){p.x+=mdx/md*0.25;p.y+=mdy/md*0.25}
+        }
+        for(var j=i+1;j<pts.length;j++){
+          var q=pts[j],dx=p.x-q.x,dy=p.y-q.y,d=dx*dx+dy*dy;
+          if(d<15000){ctx.strokeStyle='rgba('+p.c+','+(0.16*(1-d/15000))+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke()}
+        }
+        ctx.fillStyle='rgba('+p.c+',0.75)';ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill();
+      }
+      if(running&&!reduce)raf=requestAnimationFrame(draw);
+    }
+    size();draw();
+    var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){size();if(reduce)draw()},150)});
+    window.addEventListener('pointermove',function(e){mouse.x=e.clientX;mouse.y=e.clientY;if(reduce)draw()},{passive:true});
+    document.addEventListener('pointerleave',function(){mouse.x=mouse.y=-9999});
+    // pause when the tab is hidden, to save battery
+    document.addEventListener('visibilitychange',function(){
+      running=!document.hidden;
+      if(running&&!reduce&&!raf)raf=requestAnimationFrame(draw);
+      if(!running&&raf){cancelAnimationFrame(raf);raf=null}
+    });
+  }
+
+  // ---------- Scroll rail, section nodes and ambient glows ----------
+  var rail=document.getElementById('rail'),rfill=document.getElementById('rail-fill'),rhead=document.getElementById('rail-head');
+  var labels=[].slice.call(document.querySelectorAll('.section-label')),nodes=[],railTop=0,railH=0,amb=document.querySelector('.ambient');
+  function layoutRail(){
+    var mainEl=document.getElementById('top'),mr=mainEl.getBoundingClientRect(),sy=window.scrollY;
+    var startEl=document.querySelector('.stats'),endEl=document.querySelector('.cta');
+    railTop=startEl.getBoundingClientRect().top+sy-(mr.top+sy);
+    railH=Math.max(10,mr.bottom+sy-(mr.top+sy)-railTop-24);
+    rail.style.top=railTop+'px';rail.style.height=railH+'px';
+    nodes.forEach(function(n){n.el.remove()});nodes=[];
+    labels.forEach(function(l){
+      var y=l.getBoundingClientRect().top+sy-(mr.top+sy)-railTop+8;
+      var n=document.createElement('div');n.className='rail-node';n.style.top=y+'px';rail.appendChild(n);
+      nodes.push({el:n,y:y,label:l});
+    });
+    updateRail();
+  }
+  function updateRail(){
+    var mr=document.getElementById('top').getBoundingClientRect();
+    var y=window.scrollY,total=document.documentElement.scrollHeight-window.innerHeight,frac=total>0?y/total:1;
+    // the "reading point" moves from 55% of the screen down to the very bottom as you reach the end,
+    // so the line always fills completely when you scroll all the way down
+    var point=window.innerHeight*(0.55+0.45*Math.pow(frac,3));
+    var p=Math.max(0,Math.min(railH,point-mr.top-railTop));
+    if(frac>0.995)p=railH;
+    rfill.style.height=p+'px';rhead.style.top=p+'px';rhead.style.opacity=p>0?1:0;
+    nodes.forEach(function(n){var on=p>=n.y;n.el.classList.toggle('on',on);n.label.classList.toggle('lit',on)});
+    document.documentElement.style.setProperty('--sp',total>0?(y/total).toFixed(3):0);
+    if(amb)amb.style.setProperty('--amb',Math.min(1,Math.max(0,(y-300)/500)).toFixed(2));
+    if(cv)cv.style.opacity=Math.max(0.5,1-y/1400).toFixed(2);
+  }
+  window.addEventListener('scroll',updateRail,{passive:true});
+  var lr;window.addEventListener('resize',function(){clearTimeout(lr);lr=setTimeout(layoutRail,150)});
+  window.addEventListener('load',layoutRail);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(layoutRail);
+  layoutRail();
+
+  // ---------- Toast + copy email ----------
+  var toast=document.getElementById('toast'),tt;
+  function showToast(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('show')},2200)}
+  var EMAIL='dzejnasfc@gmail.com';
+  function copyEmail(){
+    function ok(){showToast('✓ Email copied: '+EMAIL)}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(EMAIL).then(ok,fallback)}else fallback();
+    function fallback(){var t=document.createElement('textarea');t.value=EMAIL;document.body.appendChild(t);t.select();try{document.execCommand('copy');ok()}catch(e){showToast(EMAIL)}t.remove()}
+  }
+  document.querySelectorAll('[data-copy-email]').forEach(function(b){b.addEventListener('click',copyEmail)});
+
+  // ---------- Back to top with scroll ring ----------
+  var tt2=document.getElementById('to-top'),ring=tt2.querySelector('.ring circle');
+  function onScroll2(){
+    var s=document.documentElement,y=s.scrollTop,total=s.scrollHeight-s.clientHeight;
+    tt2.classList.toggle('show',y>700);
+    ring.style.strokeDashoffset=132-(total>0?y/total:0)*132;
+  }
+  window.addEventListener('scroll',onScroll2,{passive:true});onScroll2();
+  tt2.addEventListener('click',function(){window.scrollTo({top:0,behavior:reduce?'auto':'smooth'})});
+
+  // ---------- 3D tilt on project cards ----------
+  if(!reduce&&window.matchMedia('(pointer:fine)').matches){
+    document.querySelectorAll('.project-card').forEach(function(c){
+      c.addEventListener('pointermove',function(e){
+        var r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;
+        c.style.transform='perspective(900px) rotateX('+(-py*6)+'deg) rotateY('+(px*8)+'deg) translateY(-3px)';
+      });
+      c.addEventListener('pointerleave',function(){c.style.transform=''});
+    });
+  }
+
+  // ---------- Local time in Sarajevo ----------
+  var lt=document.getElementById('localtime');
+  function tick(){
+    try{lt.textContent='Sarajevo · '+new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Sarajevo'}).format(new Date())+' local time'}catch(e){}
+  }
+  if(lt){tick();setInterval(tick,30000)}
+
+  // ---------- Quick menu (Ctrl/⌘ + K) ----------
+  var isMac=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
+  document.querySelectorAll('.mod-key').forEach(function(k){k.textContent=isMac?'⌘':'Ctrl'});
+  var pal=document.getElementById('palette'),pin=document.getElementById('palette-input'),plist=document.getElementById('palette-list'),sel=0,lastFocus=null;
+  function go(id){return function(){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:reduce?'auto':'smooth'})}}
+  var items=[
+    {i:'01',t:'Profile',h:'section',a:go('profile-heading')},
+    {i:'02',t:'Work experience',h:'section',a:go('experience')},
+    {i:'03',t:'Security projects',h:'section',a:go('projects')},
+    {i:'05',t:'Skills',h:'section',a:go('skills')},
+    {i:'06',t:'Education',h:'section',a:go('edu-heading')},
+    {i:'@',t:'Copy email address',h:'action',a:copyEmail},
+    {i:'✉',t:'Send an email',h:'action',a:function(){location.href='mailto:'+EMAIL}},
+    {i:'↓',t:'Save CV as PDF',h:'action',a:function(){setTimeout(function(){window.print()},120)}},
+    {i:'↗',t:'Open GitHub profile',h:'link',a:function(){window.open('https://github.com/dzejkv','_blank','noopener')}}
+  ],shown=items;
+  function render(){
+    var q=pin.value.trim().toLowerCase();
+    shown=items.filter(function(it){return !q||it.t.toLowerCase().indexOf(q)>-1});
+    if(sel>=shown.length)sel=Math.max(0,shown.length-1);
+    plist.innerHTML='';
+    shown.forEach(function(it,ix){
+      var li=document.createElement('li');li.setAttribute('role','option');li.id='pal-'+ix;
+      if(ix===sel){li.className='sel';li.setAttribute('aria-selected','true')}
+      li.innerHTML='<span class="pi"></span><span class="pt"></span><span class="ph"></span>';
+      li.children[0].textContent=it.i;li.children[1].textContent=it.t;li.children[2].textContent=it.h;
+      li.addEventListener('mousemove',function(){if(sel!==ix){sel=ix;render()}});
+      li.addEventListener('click',function(){run(it)});
+      plist.appendChild(li);
+    });
+    if(!shown.length){var e=document.createElement('li');e.textContent='No matches';e.style.cursor='default';plist.appendChild(e)}
+    pin.setAttribute('aria-activedescendant',shown.length?'pal-'+sel:'');
+  }
+  function open(){lastFocus=document.activeElement;pal.classList.add('open');pin.value='';sel=0;render();pin.focus()}
+  function close(){pal.classList.remove('open');if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+  function run(it){close();it.a()}
+  document.querySelectorAll('[data-open-palette]').forEach(function(b){b.addEventListener('click',open)});
+  pal.addEventListener('click',function(e){if(e.target===pal)close()});
+  pin.addEventListener('input',function(){sel=0;render()});
+  document.addEventListener('keydown',function(e){
+    var k=e.key;
+    if((e.metaKey||e.ctrlKey)&&(k==='k'||k==='K')){e.preventDefault();pal.classList.contains('open')?close():open();return}
+    if(k==='/'&&!pal.classList.contains('open')&&!/input|textarea/i.test((document.activeElement||{}).tagName||'')){e.preventDefault();open();return}
+    if(!pal.classList.contains('open'))return;
+    if(k==='Escape'){e.preventDefault();close()}
+    else if(k==='ArrowDown'){e.preventDefault();sel=(sel+1)%Math.max(shown.length,1);render()}
+    else if(k==='ArrowUp'){e.preventDefault();sel=(sel-1+shown.length)%Math.max(shown.length,1);render()}
+    else if(k==='Enter'&&shown[sel]){e.preventDefault();run(shown[sel])}
+  });
+
+  // ---------- A hello for the curious ----------
+  try{
+    console.log('%c Džejna Sejfić ','background:linear-gradient(90deg,#6366F1,#D946EF,#F472B6);color:#fff;font:700 16px sans-serif;padding:6px 10px;border-radius:6px');
+    console.log('%cPoking around the source? I like that. Let\'s talk: '+EMAIL,'color:#D946EF;font:13px monospace');
+  }catch(e){}
+
+  // Make sure everything is visible when printing
+  window.addEventListener('beforeprint',function(){els.forEach(function(el){el.classList.add('visible')})});
 })();
 </script>
 
